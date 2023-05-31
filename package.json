@@ -1,0 +1,28 @@
+{
+  "name": "chatid",
+  "version": "1.0.0",
+  "description": "A ChatID Frontend and Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Goldn7799/ChatId.git"
+  },
+  "keywords": [
+    "chat",
+    "api"
+  ],
+  "author": "SGStudio",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Goldn7799/ChatId/issues"
+  },
+  "homepage": "https://github.com/Goldn7799/ChatId#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
