@@ -3,7 +3,6 @@ const cors = require('cors');
 const express = require('express');
 const config = require('./Config');
 const RequestFilter = require('./library/App/RequestFilter');
-const Utility = require('./library/Utility/Utility');
 
 /* Setup Express */
 const app = express();
@@ -16,7 +15,7 @@ app.use(bodyParser.json({
 
 /* Get Method */
 app.get('/', (req, res)=>{
-  if (RequestFilter.checkRequest(Utility.md5.enc('hdr', req.rawHeaders))) {
+  if (RequestFilter.checkRequest(req.rawHeaders)) {
     res.status(200).json({
       success: true,
       message: 'Succes Get',

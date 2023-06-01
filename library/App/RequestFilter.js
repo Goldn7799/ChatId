@@ -10,7 +10,8 @@ setInterval(() => {
 }, 60000);
 
 // Checking request
-const checkRequest = (id)=>{
+const checkRequest = (rawId)=>{
+  const id = Utility.md5.enc('hdr', rawId)
   if (!deviceList[id]) {
     deviceList[id] = 0;
   };
