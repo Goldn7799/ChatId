@@ -2,8 +2,10 @@
   GLOBAL RULES
   Server User Id : Must 18 char
   Server File Id or Server Group Id : Must 16 char
-  Auth Code : must 24 char and resseted on 1 hour or server start|restart
-  Profile(Group|User) and Banner(User) : id of user or group and image name for access
+  Auth Code : must 24 char and resseted on 1 hour or server
+              start|restart
+  Profile(Group|User) and Banner(User) :  id of user or group and image name
+                                          for access
 */
 
 
@@ -14,17 +16,24 @@
   DisplayName : Name for display profile
   UserName : Identity as Public ID
   Bio : User Bio [Default : "Iam Now Here"]
-  BlueTick : if 'none' meaning as no have blue tick, if true filled with blue tick type [Default : "no"]
+  BlueTick :  if 'none' meaning as no have blue tick, if true filled with blue
+              tick type [Default : "no"]
   LastOnline : Data from Date.now() or TimeStamp
   Region : Region Code [Default : "en_us"]
-  PublicSettings : public settings 
-    ShowLastOnline : if true, all user can see last online this user [Default : true]
-    ShowProfilePicAsPublic : if true, all user can see profile this user [Default : true]
-    ShowOnSearch : if true, All user can see this user on search [Default : false]
-    ShowBannerAdPublic : if true, All user can show banner this user [Default : true]
-  UserState : 
-    IsBanned : for false fill with 'no' id true fill with her reason [Default : "no"]
-    ContactList : Array Of Contact list AsNote for note and id for server id of user [Default : []]
+  PublicSettings : public settings
+    ShowLastOnline :  if true, all user can see last online this user
+                      [Default : true]
+    ShowProfilePicAsPublic :  if true, all user can see profile this user
+                              [Default : true]
+    ShowOnSearch :  if true, All user can see this user on search
+                    [Default : false]
+    ShowBannerAdPublic :  if true, All user can show banner this user
+                          [Default : true]
+  UserState :
+    IsBanned :  for false fill with 'no' id true fill with her reason
+                [Default : "no"]
+    ContactList : Array Of Contact list AsNote for note and id for server id of
+                  user [Default : []]
     GroupId : List Array of Grup user joined [Default : []]
     BlockList : list array of server id user [Default : []]
     PrivateChat : Array list of Frivate ChatId [Default : []]
@@ -42,25 +51,25 @@ const UserData = {
       ShowLastOnline: false,
       ShowProfilePicAsPublic: false,
       ShowOnSearch: false,
-      ShowBannerAsPublic: false
+      ShowBannerAsPublic: false,
     },
     UserState: {
       IsBanned: 'no',
       ContactList: [
-        { AsNote: 'My Friend', id: '6ashqus7as'}
+        {AsNote: 'My Friend', id: '6ashqus7as'},
       ],
       GroupList: [
-        'audbuaebvsaj'
+        'audbuaebvsaj',
       ],
       BlockList: [
-        '6ru18nsua'
+        '6ru18nsua',
       ],
       PrivateChat: [
-        'usahebsahe-wjhgduywheu'
-      ]
-    }
-  }
-}
+        'usahebsahe-wjhgduywheu',
+      ],
+    },
+  },
+};
 
 // Group Data
 /*
@@ -69,11 +78,15 @@ const UserData = {
   Description : Group Description [Default : ""]
   Owner : string server id user owner
   PublicSettings :
-    AdminOnlyMessage : if true, member not admin can't send message [Default : false]
-    AdminOnlyEditGroup : if true, member cant edit group info or edit group [Default : true]
-    NewMemberConfirmation : if true, nre member need admin confirmation to join [Default : false]
+    AdminOnlyMessage :  if true, member not admin can't send message
+                        [Default : false]
+    AdminOnlyEditGroup :  if true, member cant edit group info or edit group
+                          [Default : true]
+    NewMemberConfirmation : if true, nre member need admin confirmation to join
+                            [Default : false]
     ShowOnSearch : if true, group can showed on search [Default : false]
-  PendingMemberList : array of pending member if NewMemberConfirmation is true [Default : []]
+  PendingMemberList : array of pending member if NewMemberConfirmation is true
+                      [Default : []]
   GroupParticipants : Array Of Member List and Admin
     Id : Server id of member user
     IsAdmin : To Indicate User is Group admin or not
@@ -88,12 +101,12 @@ const GroupData = {
       AdminOnlyMessage: false,
       AdminOnlyEditGroup: true,
       NewMemberConfirmation: false,
-      ShowOnSearch: true
+      ShowOnSearch: true,
     },
     PendingMemberList: [],
     GroupParticipants: [
-      { Id: 'jsuybeiudaiwu', IsAdmin: true},
-      { Id: 'wihfwiujeriwu', IsAdmin: false}
+      {Id: 'jsuybeiudaiwu', IsAdmin: true},
+      {Id: 'wihfwiujeriwu', IsAdmin: false},
     ],
     Messages: [
       {
@@ -101,18 +114,18 @@ const GroupData = {
         Reply: false,
         From: 'wihfwiujeriwu',
         Type: 'text',
-        Body: 'Hello World'
+        Body: 'Hello World',
       },
       {
         Id: 'fede',
         Reply: 'wudgyuwg',
         From: 'jsuybeiudaiwu',
         Type: 'text',
-        Body: 'Hello Carl'
-      }   
-    ]
-  }
-}
+        Body: 'Hello Carl',
+      },
+    ],
+  },
+};
 
 // Private Chat
 /*
@@ -126,10 +139,10 @@ const PrivateChat = {
       Reply: false,
       From: 'usahebsahe',
       Type: 'text',
-      Body: 'Hello World'
-    }
-  ]
-}
+      Body: 'Hello World',
+    },
+  ],
+};
 
 // Messaging
 /*
@@ -146,17 +159,17 @@ const StandartMessage = {
   Reply: false,
   From: 'ydba71s28sa3',
   Type: 'text',
-  Body: 'Hello World'
-}
+  Body: 'Hello World',
+};
 
-//// Message Type And Body
+// // Message Type And Body
 /*
 Body : Text or string
 */
 const TextMessage = {
   Type: 'text',
-  Body: 'Hello World'
-}
+  Body: 'Hello World',
+};
 
 /*
   Type : image | sticker [Default : image]
@@ -168,9 +181,9 @@ const ImageMessage = {
   Type: 'image',
   Body: {
     FileId: 'ashyuebdya',
-    Caption: 'This is my home'
-  }
-}
+    Caption: 'This is my home',
+  },
+};
 
 /*
   Body :
@@ -181,9 +194,9 @@ const VideoMessage = {
   Type: 'video',
   Body: {
     FileId: 'uuahushuqh',
-    Caption: 'This is a elephant'
-  }
-}
+    Caption: 'This is a elephant',
+  },
+};
 
 /*
   Body :
@@ -194,9 +207,9 @@ const FileMessage = {
   Type: 'file',
   Body: {
     FileId: 'uauevsbdne',
-    Caption: 'This is your file project'
-  }
-}
+    Caption: 'This is your file project',
+  },
+};
 
 /*
   Body :
@@ -207,14 +220,15 @@ const ContactMessage = {
   Type: 'contact',
   Body: {
     Contact: '8da8dafua',
-    Caption: 'This is your Friend'
-  }
-}
+    Caption: 'This is your Friend',
+  },
+};
 
 /*
   Body :
     Caption : caption of pooling
-    SingleSelect : if true, user cant only select one option( radio ), if else user can select 1+ or more option( checkbox )
+    SingleSelect :  if true, user cant only select one option( radio ), if else
+                    user can select 1+ or more option( checkbox )
     Data : Array Of Option List
       Name : Name of option
       Selected : array of server id user selected this option
@@ -225,10 +239,24 @@ const PoolingMessage = {
     Caption: 'Select New Feature',
     SingleSelect: false,
     Data: [
-      { Name: 'Option A', Selected: [ '736shauyge', '73widwaiuoh' ] },
-      { Name: 'Option B', Selected: [ '736shauyge', '73widwaiuoh', 'augeyasge' ] },
-      { Name: 'Option C', Selected: [ '736shauyge' ] }
-    ]
-  }
-}
+      {Name: 'Option A', Selected: ['736shauyge', '73widwaiuoh']},
+      {Name: 'Option B', Selected: ['736shauyge', '73widwaiuoh', 'augeyasge']},
+      {Name: 'Option C', Selected: ['736shauyge']},
+    ],
+  },
+};
 
+const Rules = {
+  UserData,
+  GroupData,
+  PrivateChat,
+  StandartMessage,
+  TextMessage,
+  ImageMessage,
+  VideoMessage,
+  FileMessage,
+  ContactMessage,
+  PoolingMessage,
+};
+
+module.exports = Rules;
