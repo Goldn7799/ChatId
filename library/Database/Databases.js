@@ -12,7 +12,8 @@ const root = process.cwd();
 const checkChats = ()=>{
   fs.readFile(`${root}/data-store/chats.json`, 'utf-8', (err, res)=>{
     if (err) {
-      fs.writeFile(`${root}/data-store/chats.json`, JSON.stringify({group: {}, private: {}}),
+      fs.writeFile(`${root}/data-store/chats.json`,
+          JSON.stringify({group: {}, private: {}}),
           (errs)=> {
             if (errs) {
               console.log(
@@ -68,12 +69,12 @@ fs.mkdir(`${root}/data-store`, (err)=>{
   checkUsers();
 });
 
-// Get State
-// // State Ready
+/* Get State */
+// State Ready
 const getReady = ()=>{
   return ready;
 };
-// // Users
+// Users
 const eUsers = {
   getAll: ()=>{
     return Utility.oop.copy(users);
@@ -89,11 +90,11 @@ const eUsers = {
     return Object.keys(users);
   },
   getAllUsername: ()=>{
-    const allId = Object.keys(users)
-    const allUsername = allId.map(id => {
-      return users[id].UserName
-    })
-    return allUsername
+    const allId = Object.keys(users);
+    const allUsername = allId.map((id) => {
+      return users[id].UserName;
+    });
+    return allUsername;
   },
   checkUser: (id)=>{
     const allId = Object.keys(users);
@@ -102,7 +103,7 @@ const eUsers = {
     } else {
       let username = `User_${Utility.opr.makeid(6)}`;
       if ((eUsers.getAllUsername()).includes(username)) {
-        username = `User_${Utility.opr.makeid(6)}`
+        username = `User_${Utility.opr.makeid(6)}`;
       };
       users[id] = {
         AuthCode: Utility.opr.makeid(18),
@@ -130,7 +131,8 @@ const eUsers = {
     }
   },
 };
-// // Chats
+
+// Chats
 const eChats = {
   getAllGc: ()=>{
     return Utility.oop.copy(chats.group);

@@ -10,7 +10,8 @@ setInterval(() => {
   deviceList = {};
 }, 60000);
 
-// locker
+/* Locker */
+// DDOS Locker
 let ddosLocker = false;
 const ddosNotify = ()=> {
   if (!ddosLocker) {
