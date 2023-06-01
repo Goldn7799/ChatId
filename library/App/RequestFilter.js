@@ -1,5 +1,6 @@
-const config = require('../../Config');
-const Utility = require('../Utility/Utility');
+import chalk from 'chalk';
+import config from '../../Config.js';
+import Utility from '../Utility/Utility.js';
 
 // Setup Variable
 let deviceList = {};
@@ -11,16 +12,15 @@ setInterval(() => {
 
 // Checking request
 const checkRequest = (rawId)=>{
-  const id = Utility.md5.enc('hdr', rawId)
+  const id = Utility.md5.enc('hdr', rawId);
   if (!deviceList[id]) {
     deviceList[id] = 0;
   };
   if (config.appConfig.MaxRequestPerMin < deviceList[id]) {
-    console.log(deviceList)
+    console.log(chalk.gray('--_ DDOS Detected _--'))
     return false;
   } else {
     deviceList[id]++;
-    console.log(deviceList)
     return true;
   }
 };
@@ -36,4 +36,4 @@ const RequestFilter = {
   getAllRequest,
 };
 
-module.exports = RequestFilter;
+export default RequestFilter;
