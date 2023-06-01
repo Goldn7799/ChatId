@@ -77,7 +77,9 @@ const main = ()=>{
   /* Start Listen to network */
   app.listen(config.appConfig.PortUse, ()=>{
     console.log(
-      chalk.cyanBright(`Started at port ${chalk.underline(config.appConfig.PortUse)}`)
+        chalk.cyanBright(
+            `Started at port ${chalk.underline(config.appConfig.PortUse)}`,
+        ),
     );
   });
 };

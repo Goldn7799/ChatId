@@ -10,6 +10,18 @@ setInterval(() => {
   deviceList = {};
 }, 60000);
 
+// locker
+let ddosLocker = false;
+const ddosNotify = ()=> {
+  if (!ddosLocker) {
+    ddosLocker = true;
+    console.log(chalk.gray('[ DDOS Detected ]'));
+    setTimeout(() => {
+      ddosLocker = false;
+    }, 25000);
+  };
+};
+
 // Checking request
 const checkRequest = (rawId)=>{
   const id = Utility.md5.enc('hdr', rawId);
@@ -17,7 +29,7 @@ const checkRequest = (rawId)=>{
     deviceList[id] = 0;
   };
   if (config.appConfig.MaxRequestPerMin < deviceList[id]) {
-    console.log(chalk.gray('--_ DDOS Detected _--'))
+    ddosNotify();
     return false;
   } else {
     deviceList[id]++;
