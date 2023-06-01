@@ -131,3 +131,4 @@ dist
 
 # Utility
 yarn.lock
+data-store/

@@ -12,7 +12,7 @@ const root = process.cwd();
 const checkChats = ()=>{
   fs.readFile(`${root}/data-store/chats.json`, 'utf-8', (err, res)=>{
     if (err) {
-      fs.writeFile(`${root}/data-store/chats.json`, JSON.stringify({}),
+      fs.writeFile(`${root}/data-store/chats.json`, JSON.stringify({group: {}, private: {}}),
           (errs)=> {
             if (errs) {
               console.log(
@@ -88,12 +88,22 @@ const eUsers = {
   getAllId: ()=>{
     return Object.keys(users);
   },
+  getAllUsername: ()=>{
+    const allId = Object.keys(users)
+    const allUsername = allId.map(id => {
+      return users[id].UserName
+    })
+    return allUsername
+  },
   checkUser: (id)=>{
     const allId = Object.keys(users);
     if (allId.includes(id)) {
       return true;
     } else {
-      const username = `User_${Utility.opr.makeid(6)}`;
+      let username = `User_${Utility.opr.makeid(6)}`;
+      if ((eUsers.getAllUsername()).includes(username)) {
+        username = `User_${Utility.opr.makeid(6)}`
+      };
       users[id] = {
         AuthCode: Utility.opr.makeid(18),
         DisplayName: username,
@@ -122,12 +132,22 @@ const eUsers = {
 };
 // // Chats
 const eChats = {
-  getAll: ()=>{
-    return Utility.oop.copy(chats);
+  getAllGc: ()=>{
+    return Utility.oop.copy(chats.group);
   },
-  getById: (id)=>{
-    if (chats[id]) {
-      return Utility.oop.copy(id);
+  getAllPc: ()=>{
+    return Utility.oop.copy(chats.private);
+  },
+  getGcById: (id)=>{
+    if (chats.group[id]) {
+      return Utility.oop.copy(chats.group[id]);
+    } else {
+      return false;
+    }
+  },
+  getPcById: (id)=>{
+    if (chats.private[id]) {
+      return Utility.oop.copy(chats.private[id]);
     } else {
       return false;
     }
