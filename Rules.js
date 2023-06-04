@@ -13,6 +13,7 @@
 /*
   Key On Data : Id User in Server
   AuthCode : Auth Code to acces full information of user
+  Email : Email Of Users
   DisplayName : Name for display profile
   UserName : Identity as Public ID
   Bio : User Bio [Default : "Iam Now Here"]
@@ -41,6 +42,7 @@
 const UserData = {
   'usahebsahe': {
     AuthCode: 'abfduwbfuiauhwuh',
+    Email: 'example@email.com',
     DisplayName: 'Dummy',
     UserName: 'someone_dummy',
     Bio: 'Good Luck',

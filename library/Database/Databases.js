@@ -30,6 +30,7 @@ const checkChats = ()=>{
       console.log(chalk.blue('Chats DB Loaded'));
       chats = JSON.parse(res);
       ready = true;
+      console.log(chalk.greenBright('Starting SYNC Databse'));
     }
   });
 };
@@ -69,6 +70,29 @@ fs.mkdir(`${root}/data-store`, (err)=>{
   checkUsers();
 });
 
+// Start SYNC Database
+setInterval(()=>{
+  if (ready) {
+    fs.writeFile(`${root}/data-store/users.json`, JSON.stringify(users),
+        (errs)=> {
+          if (errs) {
+            console.log(
+                chalk.red(errs),
+            );
+          } else {
+            fs.writeFile(`${root}/data-store/chats.json`, JSON.stringify(chats),
+                (errs)=> {
+                  if (errs) {
+                    console.log(
+                        chalk.red(errs),
+                    );
+                  };
+                });
+          }
+        });
+  };
+}, 2500);
+
 /* Get State */
 // State Ready
 const getReady = ()=>{
@@ -96,7 +120,7 @@ const eUsers = {
     });
     return allUsername;
   },
-  checkUser: (id)=>{
+  checkUser: (id, email)=>{
     const allId = Object.keys(users);
     if (allId.includes(id)) {
       return true;
@@ -107,6 +131,7 @@ const eUsers = {
       };
       users[id] = {
         AuthCode: Utility.opr.makeid(18),
+        Email: email,
         DisplayName: username,
         UserName: `${username.toLocaleLowerCase()}`,
         Bio: '',
