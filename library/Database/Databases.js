@@ -208,7 +208,7 @@ const eUsers = {
           PrivateChat: [],
         },
       };
-      return true;
+      return false;
     }
   },
   getPP: (id)=>{
