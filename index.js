@@ -46,7 +46,7 @@ const main = ()=>{
   });
   // Users
   app.get('/users/check/:id/:email', (req, res)=>{
-    const {id,email} =req.params;
+    const {id, email} = req.params;
     if (id && id.length > 10) {
       res.status(200).json({
         success: databases.eUsers.checkUser(id, email),
@@ -83,6 +83,12 @@ const main = ()=>{
         message: `${id} not found`,
       });
     }
+  });
+
+  // profile
+  app.get('/user/profile/:id', (req, res) => {
+    const {id} = req.params;
+    res.sendFile(databases.eUsers.getPP(id));
   });
 
   /* Post Method */

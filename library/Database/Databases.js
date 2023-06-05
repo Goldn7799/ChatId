@@ -67,7 +67,63 @@ fs.mkdir(`${root}/data-store`, (err)=>{
         chalk.green('Success Created Directory ./data-store'),
     );
   }
-  checkUsers();
+  fs.mkdir(`${root}/data-store/storage`, (err)=>{
+    if (err) {
+      console.log(
+          chalk.yellow('Skipped Creating Directory ./data-store/storage'),
+      );
+    } else {
+      console.log(
+          chalk.green('Success Created Directory ./data-store/storage'),
+      );
+    }
+    fs.mkdir(`${root}/data-store/storage/profile`, (err)=>{
+      if (err) {
+        console.log(
+            chalk.yellow(
+                'Skipped Creating Directory ./data-store/storage/profile',
+            ),
+        );
+      } else {
+        console.log(
+            chalk.green(
+                'Success Created Directory ./data-store/storageprofile',
+            ),
+        );
+      }
+      fs.mkdir(`${root}/data-store/storage/image`, (err)=>{
+        if (err) {
+          console.log(
+              chalk.yellow(
+                  'Skipped Creating Directory ./data-store/storage/image',
+              ),
+          );
+        } else {
+          console.log(
+              chalk.green(
+                  'Success Created Directory ./data-store/storage/image',
+              ),
+          );
+        }
+        fs.mkdir(`${root}/data-store/storage/file`, (err)=>{
+          if (err) {
+            console.log(
+                chalk.yellow(
+                    'Skipped Creating Directory ./data-store/storage/file',
+                ),
+            );
+          } else {
+            console.log(
+                chalk.green(
+                    'Success Created Directory ./data-store/storage/file',
+                ),
+            );
+          }
+          checkUsers();
+        });
+      });
+    });
+  });
 });
 
 // Start SYNC Database
@@ -153,6 +209,13 @@ const eUsers = {
         },
       };
       return true;
+    }
+  },
+  getPP: (id)=>{
+    if (fs.existsSync(`${root}/data-store/storage/profile/${id}.png`)) {
+      return `${root}/data-store/storage/profile/${id}.png`;
+    } else {
+      return `${root}/template/blankProfile.webp`;
     }
   },
 };
