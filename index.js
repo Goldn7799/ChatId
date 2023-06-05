@@ -48,9 +48,18 @@ const main = ()=>{
   app.get('/users/check/:id/:email', (req, res)=>{
     const {id, email} = req.params;
     if (id && id.length > 10) {
+      const isSuccess = databases.eUsers.checkUser(id, email)
+      const userData = databases.eUsers.getById(id)
       res.status(200).json({
-        success: databases.eUsers.checkUser(id, email),
+        success: isSuccess,
         message: 'None',
+        data: {
+          Email: userData.Email,
+          DisplayName: userData.DisplayName,
+          UserName: userData.UserName,
+          Bio: userData.Bio,
+          BlueTick: userData.BlueTick
+        }
       });
     } else {
       res.status(403).json({
