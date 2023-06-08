@@ -70,15 +70,25 @@ const main = ()=>{
     }
   });
 
-  app.get('/users/getUsername/:id', (req, res)=>{
-    const {id} = req.params;
+  app.get('/users/getUsername/:id/:userId', (req, res)=>{
+    const {id, userId} = req.params;
     const selectedUser = databases.eUsers.getById(id)
+    const selectedUserRequest = databases.eUsers.getById(userId)
     if (selectedUser) {
+      let DisplayName = selectedUser.DisplayName;
+      if (selectedUserRequest) {
+        const contactIdList = selectedUserRequest.UserState.ContactList.map(contact => {
+          return contact.Id
+        })
+        if (contactIdList.includes(id)) {
+          DisplayName = ((selectedUserRequest.UserState.ContactList).filter(contact => contact.Id === id))[0].AsNote
+        };
+      };
       res.status(200).json({
         success: true,
         message: 'Success Get Name/UserName',
         data: {
-          DisplayName: selectedUser.DisplayName,
+          DisplayName,
           UserName: selectedUser.UserName
         }
       })

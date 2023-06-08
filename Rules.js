@@ -59,7 +59,7 @@ const UserData = {
     UserState: {
       IsBanned: 'no',
       ContactList: [
-        {AsNote: 'My Friend', id: '6ashqus7as'},
+        {AsNote: 'My Friend', Id: '6ashqus7as'},
       ],
       GroupList: [
         'audbuaebvsaj',
