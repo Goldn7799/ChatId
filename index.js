@@ -58,7 +58,8 @@ const main = ()=>{
           DisplayName: userData.DisplayName,
           UserName: userData.UserName,
           Bio: userData.Bio,
-          BlueTick: userData.BlueTick
+          BlueTick: userData.BlueTick,
+          UserState: userData.UserState
         }
       });
     } else {
@@ -69,11 +70,30 @@ const main = ()=>{
     }
   });
 
+  app.get('/users/getUsername/:id', (req, res)=>{
+    const {id} = req.params;
+    const selectedUser = databases.eUsers.getById(id)
+    if (selectedUser) {
+      res.status(200).json({
+        success: true,
+        message: 'Success Get Name/UserName',
+        data: {
+          DisplayName: selectedUser.DisplayName,
+          UserName: selectedUser.UserName
+        }
+      })
+    } else {
+      res.status(404).json({
+        success: false,
+        message: 'User Not Found'
+      })
+    }
+  })
+
   // Chats
-  app.get('/chats/metadata/:type/:id', (req, res)=>{
-    const {type, id} = req.params;
-    const selectedChat = (type === 'group') ?
-      databases.eChats.getGcById(id) : databases.eChats.getPcById(id);
+  app.get('/chats/metadata/group/:id', (req, res)=>{
+    const {id} = req.params;
+    const selectedChat = databases.eChats.getGcById(id) 
     if (selectedChat) {
       res.status(200).json({
         success: true,
@@ -94,10 +114,71 @@ const main = ()=>{
     }
   });
 
+  app.post('/chats/MessageNMinimal/fromUser/:userId', (req, res) => {
+    const {userId} = req.params;
+    const {loadedChatMsg} = req.body;
+    if (userId && typeof(loadedChatMsg) === 'object' && (databases.eUsers.getAllId()).includes(userId)) {
+      const allChatId = Object.keys(loadedChatMsg);
+      let dataResult = {}
+      for (const chatId of allChatId) {
+        const selectedLoadedMsg = loadedChatMsg[chatId];
+        const rawSelectedChatDataByGroup = databases.eChats.getGcById(chatId);
+        const selectedChatData = (rawSelectedChatDataByGroup) ? rawSelectedChatDataByGroup : databases.eChats.getPcById(chatId);
+        if (selectedChatData && (chatId.includes('-') || (selectedChatData.GroupParticipants).includes(userId) || chatId === 'Global')) {
+          let filteredMsg = [];
+          if (chatId.includes('-')) {
+            filteredMsg = selectedChatData.filter(msg => (selectedLoadedMsg.includes(msg.Id)) ? false : true)
+          } else {
+            filteredMsg = (selectedChatData.Messages).filter(msg => (selectedLoadedMsg.includes(msg.Id)) ? false : true)
+          }
+          dataResult[chatId] = {
+            Name: (chatId.includes('-')) ? chatId : selectedChatData.Name,
+            LastChat: (chatId.includes('-')) ? selectedChatData[(selectedChatData).length - 1] : selectedChatData.Messages[(selectedChatData.Messages).length - 1],
+            FilteredMsg: filteredMsg,
+          }
+        } else {
+          dataResult[chatId] = {
+            Name: selectedChatData.Name,
+            LastChat: [{
+              Id: Utility.opr.makeid(6),
+              Reply: false,
+              From: 'self',
+              Type: 'kick',
+              Body: userId,
+              Time: '00.00'
+            }],
+            FilteredMsg: [{
+              Id: Utility.opr.makeid(6),
+              Reply: false,
+              From: 'self',
+              Type: 'kick',
+              Body: userId,
+              Time: '00.00'
+            }]
+          }
+        };
+      }
+      res.status(200).json({
+        success: true,
+        message: 'Succes Get',
+        data: dataResult
+      })
+    } else {
+      res.status(403).json({
+        success: false,
+        message: 'Invalid Data'
+      })
+    }
+  })
+
   // profile
   app.get('/user/profile/:id', (req, res) => {
     const {id} = req.params;
     res.sendFile(databases.eUsers.getPP(id));
+  });
+  app.get('/group/profile/:id', (req, res) => {
+    const {id} = req.params;
+    res.sendFile(databases.eChats.getPP(id));
   });
 
   /* Post Method */
@@ -137,47 +218,6 @@ const main = ()=>{
     msgIdRecived : array of message id
     userId : User Id
   */
-  app.post('/chats/message/:type/:chatId', (req, res)=>{
-    const {type, chatId} = req.params;
-    const {msgIdRecived, userId} = req.body;
-    if (typeof(msgIdRecived) === 'object' && userId) {
-      const selectedChat = (type === 'group') ?
-          (databases.eChats.getGcById(chatId)) :
-          (databases.eChats.getPcById(chatId));
-      if (selectedChat) {
-        const listOfParticipantsId =
-            selectedChat.GroupParticipants.map((user) => {
-              return user.id;
-            });
-        if (listOfParticipantsId.includes(userId)) {
-          let filteredMessage = Utility.oop.copy(selectedChat.Messages);
-          for (const msgId of msgIdRecived) {
-            filteredMessage = filteredMessage.filter((msg) => msg.id !== msgId);
-          }
-          res.status(200).json({
-            success: true,
-            message: 'Succes Load Message List',
-            data: filteredMessage,
-          });
-        } else {
-          res.status(401).json({
-            success: false,
-            message: 'Acces Denied',
-          });
-        }
-      } else {
-        res.status(404).json({
-          success: false,
-          message: `${chatId} not found`,
-        });
-      }
-    } else {
-      res.status(403).json({
-        success: false,
-        message: 'Cant resolve data',
-      });
-    }
-  });
 
   /* Start Listen to network */
   app.listen(config.appConfig.PortUse, ()=>{

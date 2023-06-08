@@ -119,7 +119,22 @@ fs.mkdir(`${root}/data-store`, (err)=>{
                 ),
             );
           }
-          checkUsers();
+          fs.mkdir(`${root}/data-store/storage/groupProfile`, (err)=>{
+            if (err) {
+              console.log(
+                  chalk.yellow(
+                      'Skipped Creating Directory ./data-store/storage/groupProfile',
+                  ),
+              );
+            } else {
+              console.log(
+                  chalk.green(
+                      'Success Created Directory ./data-store/storage/groupProfile',
+                  ),
+              );
+            }
+            checkUsers();
+          });
         });
       });
     });
@@ -203,7 +218,7 @@ const eUsers = {
         UserState: {
           IsBanned: 'no',
           ContactList: [],
-          GroupList: [],
+          GroupList: ['Global'],
           BlockList: [],
           PrivateChat: [],
         },
@@ -242,6 +257,13 @@ const eChats = {
       return false;
     }
   },
+  getPP: (id)=>{
+    if (fs.existsSync(`${root}/data-store/storage/groupProfile/${id}.png`)) {
+      return `${root}/data-store/storage/groupProfile/${id}.png`;
+    } else {
+      return `${root}/template/blankGroupProfile.webp`;
+    }
+  }
 };
 
 // Exports

@@ -6,6 +6,7 @@
               start|restart
   Profile(Group|User) and Banner(User) :  id of user or group and image name
                                           for access
+  Chat Id : 6 char
 */
 
 
@@ -117,6 +118,7 @@ const GroupData = {
         From: 'wihfwiujeriwu',
         Type: 'text',
         Body: 'Hello World',
+        Time: '00.00'
       },
       {
         Id: 'fede',
@@ -124,6 +126,7 @@ const GroupData = {
         From: 'jsuybeiudaiwu',
         Type: 'text',
         Body: 'Hello Carl',
+        Time: '00.00'
       },
     ],
   },
@@ -142,6 +145,7 @@ const PrivateChat = {
       From: 'usahebsahe',
       Type: 'text',
       Body: 'Hello World',
+      Time: '00.00'
     },
   ],
 };
@@ -162,6 +166,7 @@ const StandartMessage = {
   From: 'ydba71s28sa3',
   Type: 'text',
   Body: 'Hello World',
+  Time: '00.00'
 };
 
 // // Message Type And Body

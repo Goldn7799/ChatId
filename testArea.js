@@ -1,17 +1,17 @@
-fetch('http://localhost:2022/md5enc/a', {
+fetch('http://localhost:2022/chats/MessageNMinimal/fromUser/EPlXFjsvOcQA3bg30XkCnHPwYXg2', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    data: 'Hello',
+    loadedChatMsg: {},
   }),
 })
     .then((ress) => {
       return ress.json();
     })
     .then((res) => {
-      console.log(res);
+      console.log(JSON.stringify(res));
     })
     .catch((err) => {
       console.log(err);
